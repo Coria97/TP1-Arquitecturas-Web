@@ -14,11 +14,11 @@ import org.apache.commons.csv.CSVRecord;
 public class Main {
     public static void main(String[] args) {
 
-        String jdbcUrl = "jdbc:mysql://localhost:3308/db_arquitectura";
+        String url = "jdbc:mysql://localhost:3308/db_arquitectura";
         String username = "root";
         String password = "";
 
-        try (Connection conn = DriverManager.getConnection(jdbcUrl, username, password);
+        try (Connection conn = DriverManager.getConnection(url, username, password);
             Statement statement = conn.createStatement()) {
 
                 System.out.println("Conexión establecida con éxito!");
