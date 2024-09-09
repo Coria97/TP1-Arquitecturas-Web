@@ -4,7 +4,6 @@ services:
   mysql_service:
     image: mysql:8.0
     container_name: mysql_container
-    restart: always
     environment:
       MYSQL_DATABASE: db_arquitectura
       MYSQL_USER: admin
@@ -17,7 +16,6 @@ services:
   phpmyadmin_service:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin_container
-    restart: always
     environment:
       PMA_HOST: mysql_service
       MYSQL_ROOT_PASSWORD: ""
