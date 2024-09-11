@@ -1,4 +1,4 @@
-package org.example.DAO;
+package org.example.dao;
 
 public interface FacturaProductoDAO {
 

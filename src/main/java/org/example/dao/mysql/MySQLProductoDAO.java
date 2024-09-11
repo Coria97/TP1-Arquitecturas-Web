@@ -1,15 +1,17 @@
-package org.example.DAO;
+package org.example.dao.mysql;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.DbSingleton;
+import org.example.dao.ProductoDAO;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 
-public class MySQLProductoDAO implements ProductoDAO{
+public class MySQLProductoDAO implements ProductoDAO {
 
     private Connection conn;
 
@@ -40,9 +42,9 @@ public class MySQLProductoDAO implements ProductoDAO{
     @Override
     public void insertProduct() {
         try {
-            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/clientes.csv"));
+            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/productos.csv"));
 
-            String insert = "INSERT INTO producto (idProducto,nombre,valor) VALUES (?,?,?)";
+            String insert = "INSERT INTO Producto (idProducto,nombre,valor) VALUES (?,?,?)";
             PreparedStatement statement = conn.prepareStatement(insert);
 
             for (CSVRecord row : parser) {
@@ -84,6 +86,7 @@ public class MySQLProductoDAO implements ProductoDAO{
                 productData.put("valor", rs.getString("valor"));
                 productData.put("total_vendido", rs.getString("total_vendido"));
             }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

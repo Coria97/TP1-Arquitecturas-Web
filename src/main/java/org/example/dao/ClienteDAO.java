@@ -1,7 +1,4 @@
-package org.example.DAO;
-
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
+package org.example.dao;
 
 public interface ClienteDAO {
 

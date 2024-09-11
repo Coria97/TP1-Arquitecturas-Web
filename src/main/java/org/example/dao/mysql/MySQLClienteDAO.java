@@ -1,8 +1,10 @@
-package org.example.DAO;
+package org.example.dao.mysql;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.dao.ClienteDAO;
+import org.example.DbSingleton;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,7 +42,7 @@ public class MySQLClienteDAO implements ClienteDAO {
         try {
            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/clientes.csv"));
 
-            String insert = "INSERT INTO cliente (idCliente,nombre,email) VALUES (?,?,?)";
+            String insert = "INSERT INTO Cliente (idCliente,nombre,email) VALUES (?,?,?)";
             PreparedStatement statement = conn.prepareStatement(insert);
 
             for (CSVRecord row : parser) {
