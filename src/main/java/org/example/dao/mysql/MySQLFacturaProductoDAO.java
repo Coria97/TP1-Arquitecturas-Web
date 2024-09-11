@@ -3,13 +3,11 @@ package org.example.dao.mysql;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.example.DbSingleton;
+import org.example.MysqlFactory;
 import org.example.dao.FacturaProductoDAO;
 
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
 
@@ -17,8 +15,8 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
 
     public MySQLFacturaProductoDAO(Connection conn){
         try {
-            this.conn = DbSingleton.getInstance();
-        } catch (SQLException e) {
+            this.conn = conn;
+        } catch (Exception e) {
             throw new RuntimeException("Error al obtener la conexión", e);
         }
     }
@@ -35,6 +33,8 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
                 ")";
         try(PreparedStatement statement = conn.prepareStatement(createFacturaProductoTable)) {
             statement.executeUpdate();
+        } catch (SQLSyntaxErrorException e){
+            System.out.println("Ya existe la tabla Factura_Producto");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -49,17 +49,15 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
             PreparedStatement statement = conn.prepareStatement(insert);
 
             for(CSVRecord row: parser) {
-                System.out.println(row.get("idFactura"));
-                System.out.println(row.get("idProducto"));
-                System.out.println(row.get("cantidad"));
 
                 statement.setString(1,row.get("idFactura"));
                 statement.setString(2,row.get("idProducto"));
                 statement.setString(3,row.get("cantidad"));
 
-
                 statement.executeUpdate();
             }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("La tabla Factura-Producto ya esta cargada");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

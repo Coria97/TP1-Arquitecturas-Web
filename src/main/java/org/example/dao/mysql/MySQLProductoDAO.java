@@ -3,7 +3,7 @@ package org.example.dao.mysql;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.example.DbSingleton;
+import org.example.MysqlFactory;
 import org.example.dao.ProductoDAO;
 
 import java.io.FileReader;
@@ -17,8 +17,8 @@ public class MySQLProductoDAO implements ProductoDAO {
 
     public MySQLProductoDAO(Connection conn){
         try {
-            this.conn = DbSingleton.getInstance();
-        } catch (SQLException e) {
+            this.conn = conn;
+        } catch (Exception e) {
             throw new RuntimeException("Error al obtener la conexión", e);
         }
     }
@@ -32,6 +32,8 @@ public class MySQLProductoDAO implements ProductoDAO {
                 ")";
         try(PreparedStatement statement = conn.prepareStatement(createProductoTable)) {
            statement.executeUpdate();
+        } catch (SQLSyntaxErrorException e){
+            System.out.println("Ya existe la tabla Producto");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -48,9 +50,6 @@ public class MySQLProductoDAO implements ProductoDAO {
             PreparedStatement statement = conn.prepareStatement(insert);
 
             for (CSVRecord row : parser) {
-                System.out.println(row.get("idProducto"));
-                System.out.println(row.get("nombre"));
-                System.out.println(row.get("valor"));
 
                 statement.setString(1, row.get("idProducto"));
                 statement.setString(2, row.get("nombre"));
@@ -58,6 +57,8 @@ public class MySQLProductoDAO implements ProductoDAO {
                 statement.executeUpdate();
 
             }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("La tabla Producto ya esta cargada");
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }

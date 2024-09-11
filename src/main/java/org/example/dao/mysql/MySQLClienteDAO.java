@@ -3,8 +3,9 @@ package org.example.dao.mysql;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.DAOFactory;
 import org.example.dao.ClienteDAO;
-import org.example.DbSingleton;
+import org.example.MysqlFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,8 +16,8 @@ public class MySQLClienteDAO implements ClienteDAO {
 
     public MySQLClienteDAO(Connection conn){
         try {
-            this.conn = DbSingleton.getInstance();
-        } catch (SQLException e) {
+            this.conn = conn;
+        } catch (Exception e) {
             throw new RuntimeException("Error al obtener la conexión", e);
         }
     }
@@ -31,6 +32,8 @@ public class MySQLClienteDAO implements ClienteDAO {
                 ")";
         try(PreparedStatement statement = conn.prepareStatement(createClienteTable)){
            statement.executeUpdate();
+        } catch (SQLSyntaxErrorException e){
+            System.out.println("Ya existe la tabla Cliente");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -46,15 +49,15 @@ public class MySQLClienteDAO implements ClienteDAO {
             PreparedStatement statement = conn.prepareStatement(insert);
 
             for (CSVRecord row : parser) {
-                System.out.println(row.get("idCliente"));
-                System.out.println(row.get("nombre"));
-                System.out.println(row.get("email"));
+
                 statement.setString(1, row.get("idCliente"));
                 statement.setString(2, row.get("nombre"));
                 statement.setString(3, row.get("email"));
                 statement.executeUpdate();
 
             }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("La tabla Cliente ya esta cargada");
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }
