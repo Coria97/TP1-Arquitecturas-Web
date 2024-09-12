@@ -30,13 +30,13 @@ public class Main {
 
             /** Insertar registros en las tablas **/
 
-            productoDAO.insertProduct();
+            productoDAO.insertRegister();
 
-            clienteDAO.insertCliente();
+            clienteDAO.insertRegister();
 
-            facturaDAO.insertFactura();
+            facturaDAO.insertRegister();
 
-            facturaProductoDAO.insertFacturaProducto();
+            facturaProductoDAO.insertRegister();
 
             System.out.println();
 

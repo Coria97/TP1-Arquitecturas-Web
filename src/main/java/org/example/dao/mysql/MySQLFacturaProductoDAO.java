@@ -3,12 +3,12 @@ package org.example.dao.mysql;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.example.dao.FacturaProductoDAO;
+import org.example.dao.GenericDAO;
 
 import java.io.FileReader;
 import java.sql.*;
 
-public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
+public class MySQLFacturaProductoDAO implements GenericDAO {
 
     private Connection conn;
 
@@ -40,7 +40,7 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
     }
 
     @Override
-    public void insertFacturaProducto() {
+    public void insertRegister() {
         try {
             CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/facturas-productos.csv"));
 

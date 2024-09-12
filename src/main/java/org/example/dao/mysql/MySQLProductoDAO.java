@@ -3,6 +3,7 @@ package org.example.dao.mysql;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.dao.GenericDAO;
 import org.example.dao.ProductoDAO;
 
 import java.io.FileReader;
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 
-public class MySQLProductoDAO implements ProductoDAO {
+public class MySQLProductoDAO implements GenericDAO, ProductoDAO {
 
     private Connection conn;
 
@@ -41,7 +42,7 @@ public class MySQLProductoDAO implements ProductoDAO {
     }
 
     @Override
-    public void insertProduct() {
+    public void insertRegister() {
         try {
             CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/productos.csv"));
 

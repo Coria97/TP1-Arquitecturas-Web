@@ -4,12 +4,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.example.dao.ClienteDAO;
+import org.example.dao.GenericDAO;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 
-public class MySQLClienteDAO implements ClienteDAO {
+public class MySQLClienteDAO implements GenericDAO, ClienteDAO {
     private Connection conn;
 
     public MySQLClienteDAO(Connection conn){
@@ -39,7 +40,7 @@ public class MySQLClienteDAO implements ClienteDAO {
     }
 
     @Override
-    public void insertCliente() {
+    public void insertRegister() {
         try {
             CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/clientes.csv"));
 
