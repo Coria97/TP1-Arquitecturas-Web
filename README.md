@@ -55,4 +55,4 @@ cd ./tp1-integrador-arq/
 4. Levantar infraestructura:
 ```bash
 docker compose up -d --build
-```bash
+```
