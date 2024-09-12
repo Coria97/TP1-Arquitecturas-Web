@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MysqlFactory extends DAOFactory{
+public class MySQLFactory extends DAOFactory{
     private static final String url = "jdbc:mysql://localhost:3308/integrador_1";
     private static final String username = "root";
     private static final String password = "";

@@ -3,9 +3,7 @@ package org.example.dao.mysql;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.example.DAOFactory;
 import org.example.dao.ClienteDAO;
-import org.example.MysqlFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -43,7 +41,7 @@ public class MySQLClienteDAO implements ClienteDAO {
     @Override
     public void insertCliente() {
         try {
-           CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/clientes.csv"));
+            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("src/main/resources/clientes.csv"));
 
             String insert = "INSERT INTO Cliente (idCliente,nombre,email) VALUES (?,?,?)";
             PreparedStatement statement = conn.prepareStatement(insert);

@@ -10,7 +10,7 @@ import org.example.dao.mysql.MySQLProductoDAO;
 public class Main {
     public static void main(String[] args) throws SQLException {
 
-            Connection conn = DAOFactory.getDaoFactory(1).getInstance();
+            Connection conn = DAOFactory.getDAOFactory(1).getInstance();
 
             /** Creacion de tablas **/
 

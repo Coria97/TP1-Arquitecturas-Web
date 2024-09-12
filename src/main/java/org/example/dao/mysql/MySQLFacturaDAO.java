@@ -3,7 +3,6 @@ package org.example.dao.mysql;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.example.MysqlFactory;
 import org.example.dao.FacturaDAO;
 
 import java.io.FileReader;

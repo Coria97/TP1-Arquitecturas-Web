@@ -7,9 +7,9 @@ public abstract class DAOFactory {
 
     public abstract Connection getInstance();
 
-    public static DAOFactory getDaoFactory(int db){
+    public static DAOFactory getDAOFactory(int db){
         switch (db){
-            case MYSQL_JDBC : return new MysqlFactory();
+            case MYSQL_JDBC : return new MySQLFactory();
             default: return null;
         }
     }
